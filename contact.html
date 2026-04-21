@@ -120,7 +120,7 @@
     <li><a href="over-ons.html">Over ons</a></li>
     <li><a href="verhalen.html">Verhalen</a></li>
   </ul>
-  <a href="contact.html" class="nav-cta">Gratis gesprek</a>
+  <a href="contact.html" class="nav-cta" style="pointer-events:none;opacity:0.5;">Gratis gesprek</a>
 </nav>
 
 <div class="contact-layout">
@@ -141,57 +141,59 @@
   <div class="contact-rechts">
     <h2>Stuur een bericht</h2>
 
-    <!--
-      STAP 1: Maak een gratis account op formspree.io
-      STAP 2: Maak een nieuw formulier aan en kopieer jouw form-ID
-      STAP 3: Vervang YOUR_FORM_ID hieronder door jouw eigen ID
-      Voorbeeld: action="https://formspree.io/f/abcd1234"
-    -->
     <form id="contactForm" action="https://formspree.io/f/meevazyw" method="POST">
 
-      <!-- Honeypot veld - bots vullen dit in, echte mensen niet -->
+      <!-- Honeypot - onzichtbaar voor mensen, bots vullen dit in -->
       <div class="hp-field">
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off">
       </div>
-
       <input type="hidden" name="_subject" value="Nieuw bericht via Vuori Advisory website">
-      <input type="hidden" name="_next" value="">
 
       <div class="form-row">
         <div class="form-group">
-          <label for="voornaam">Voornaam</label>
+          <label for="voornaam">Voornaam <span style="color:var(--rose)">*</span></label>
           <input type="text" id="voornaam" name="voornaam" required placeholder="Jouw voornaam">
         </div>
         <div class="form-group">
-          <label for="achternaam">Achternaam</label>
+          <label for="achternaam">Achternaam <span style="color:var(--rose)">*</span></label>
           <input type="text" id="achternaam" name="achternaam" required placeholder="Jouw achternaam">
         </div>
       </div>
 
       <div class="form-group">
-        <label for="email">E-mailadres</label>
+        <label for="email">E-mailadres <span style="color:var(--rose)">*</span></label>
         <input type="email" id="email" name="email" required placeholder="jouw@email.nl">
       </div>
 
       <div class="form-group">
-        <label for="onderwerp">Waar gaat het over?</label>
+        <label for="onderwerp">Waar gaat het over? <span style="color:var(--rose)">*</span></label>
         <select id="onderwerp" name="onderwerp" required>
           <option value="" disabled selected>Kies een onderwerp</option>
           <option value="Vermogensplan">Persoonlijk vermogensplan</option>
-          <option value="Beleggen">Beleggen & investeren</option>
-          <option value="Zelfstandigheid">Financiële zelfstandigheid</option>
+          <option value="Beleggen">Beleggen &amp; investeren</option>
+          <option value="Zelfstandigheid">Financiele zelfstandigheid</option>
           <option value="Pensioen">Pensioenopbouw</option>
           <option value="Anders">Iets anders</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label for="bericht">Jouw bericht</label>
-        <textarea id="bericht" name="bericht" required placeholder="Vertel kort wat je situatie is en wat je hoopt te bereiken..."></textarea>
+        <label for="bericht">Jouw bericht <span style="color:var(--rose)">*</span></label>
+        <textarea id="bericht" name="bericht" required minlength="20" placeholder="Vertel kort wat je situatie is en wat je hoopt te bereiken..."></textarea>
       </div>
 
-      <button type="submit" class="btn-submit">Verstuur bericht</button>
-      <p class="form-note">Jouw gegevens worden nooit gedeeld met derden en alleen gebruikt om contact met je op te nemen.</p>
+      <!-- Cloudflare Turnstile captcha
+           Instellen (2 minuten):
+           1. Ga naar dash.cloudflare.com en klik links op "Turnstile"
+           2. Klik "Add site", vul je domeinnaam in, kies "Managed"
+           3. Kopieer de Site Key en vervang JOUW_SITE_KEY hieronder -->
+      <div class="form-group">
+        <div class="cf-turnstile" data-sitekey="JOUW_SITE_KEY" data-theme="light"></div>
+        <p id="captcha-error" style="display:none; color:var(--rose); font-size:0.75rem; margin-top:0.5rem;">Bevestig dat je geen robot bent.</p>
+      </div>
+
+      <button type="submit" class="btn-submit" id="submitBtn">Verstuur bericht</button>
+      <p class="form-note">Alle velden zijn verplicht. Jouw gegevens worden nooit gedeeld met derden.</p>
     </form>
 
     <div class="success-msg" id="successMsg">
@@ -212,6 +214,20 @@
 
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    // Controleer captcha
+    const captchaEl = document.querySelector('[name="cf-turnstile-response"]');
+    const captchaError = document.getElementById('captcha-error');
+    if (!captchaEl || !captchaEl.value) {
+      captchaError.style.display = 'block';
+      return;
+    }
+    captchaError.style.display = 'none';
+
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.textContent = 'Versturen...';
+    submitBtn.disabled = true;
+
     const data = new FormData(form);
 
     try {
@@ -225,6 +241,8 @@
         form.style.display = 'none';
         successMsg.style.display = 'block';
       } else {
+        submitBtn.textContent = 'Verstuur bericht';
+        submitBtn.disabled = false;
         alert('Er ging iets mis. Probeer het opnieuw of stuur een e-mail naar vivienneberg@gmail.com');
       }
     } catch {
@@ -233,5 +251,6 @@
   });
 </script>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>

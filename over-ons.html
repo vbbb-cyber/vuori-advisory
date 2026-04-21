@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Over ons — Vuori Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #B8965A; --gold-light: #D4A8A0; --gold-pale: #F7ECEA;
+    --cream: #FDF8F7; --deep: #1C1814; --muted: #7A5C5A;
+    --border: rgba(194,140,135,0.28); --rose: #C97E7E; --rose-pale: #F2DDD9;
+  }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 0.08em; color: var(--deep); text-decoration: none; display: inline-block; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.65rem 1.5rem; border: 1px solid var(--gold); color: var(--gold); background: transparent; transition: all 0.25s; font-family: 'Jost', sans-serif; text-decoration: none; }
+  .nav-cta:hover { background: var(--gold); color: white; }
+  .btn-primary { background: var(--gold); color: white; border: none; padding: 0.9rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; display: inline-block; text-decoration: none; }
+  .btn-primary:hover { background: #9A7A40; }
+
+  /* PROFIEL HERO */
+  .profiel-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 70vh;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .profiel-links {
+    background: var(--rose-pale);
+    padding: 6rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 0.5px solid var(--border);
+  }
+  .avatar {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: white;
+    margin-bottom: 2rem;
+    letter-spacing: 0.05em;
+  }
+  .profiel-links h1 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; line-height: 1.15; color: var(--deep); margin-bottom: 0.5rem; }
+  .profiel-links h1 em { font-style: italic; color: var(--gold); }
+  .functietitel { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 2rem; }
+  .credentials { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
+  .credential { display: flex; align-items: center; gap: 0.75rem; font-size: 0.8rem; color: var(--muted); font-weight: 300; }
+  .credential::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--rose); flex-shrink: 0; }
+
+  .profiel-rechts { padding: 6rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+  .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+  .page-eyebrow::before { content: ''; display: block; width: 2rem; height: 0.5px; background: var(--rose); }
+  .profiel-rechts h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; line-height: 1.2; color: var(--deep); margin-bottom: 1.5rem; }
+  .profiel-rechts h2 em { font-style: italic; color: var(--gold); }
+  .profiel-rechts p { font-size: 0.9rem; line-height: 1.9; color: var(--muted); font-weight: 300; margin-bottom: 1.25rem; }
+
+  /* MISSIE */
+  .missie-section {
+    background: var(--deep);
+    padding: 6rem 4rem;
+    text-align: center;
+  }
+  .missie-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); margin-bottom: 2rem; font-weight: 400; }
+  .missie-section blockquote { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; font-style: italic; color: white; max-width: 46rem; margin: 0 auto; line-height: 1.4; }
+
+  /* ERVARING */
+  .ervaring-section { padding: 5rem 4rem; border-top: 0.5px solid var(--border); }
+  .section-label { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 3rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+  .ervaring-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 0.5px solid var(--border); }
+  .ervaring-item { padding: 2.5rem; border-right: 0.5px solid var(--border); }
+  .ervaring-item:last-child { border-right: none; }
+  .ervaring-jaar { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rose); margin-bottom: 0.5rem; }
+  .ervaring-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--deep); margin-bottom: 0.5rem; }
+  .ervaring-item p { font-size: 0.8rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+  .cta-section { padding: 6rem 4rem; text-align: center; border-top: 0.5px solid var(--border); }
+  .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem; color: var(--deep); }
+  .cta-section h2 em { font-style: italic; color: var(--gold); }
+  .cta-section p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; font-weight: 300; }
+
+  footer { background: var(--deep); padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer .logo { color: white; }
+  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+    .profiel-hero { grid-template-columns: 1fr; }
+    .profiel-links, .profiel-rechts, .ervaring-section, .cta-section { padding: 3rem 1.5rem; }
+    .ervaring-grid { grid-template-columns: 1fr; }
+    .ervaring-item { border-right: none; border-bottom: 0.5px solid var(--border); }
+    .missie-section { padding: 4rem 1.5rem; }
+    .missie-section blockquote { font-size: 1.6rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Vuori <span>Advisory</span></a>
+  <ul class="nav-links">
+    <li><a href="diensten.html">Diensten</a></li>
+    <li><a href="aanpak.html">Aanpak</a></li>
+    <li><a href="over-ons.html" class="active">Over ons</a></li>
+    <li><a href="verhalen.html">Verhalen</a></li>
+  </ul>
+  <a href="https://formspree.io/f/meevazyw" class="nav-cta">Gratis gesprek</a>
+</nav>
+
+<section class="profiel-hero">
+  <div class="profiel-links">
+    <div class="avatar">AVB</div>
+    <h1>Adriana<br><em>van den Berg</em></h1>
+    <p class="functietitel">Oprichter & financieel adviseur</p>
+    <div class="credentials">
+      <div class="credential">20 jaar ervaring in corporate finance</div>
+      <div class="credential">Voormalig CFO in de financiële sector</div>
+      <div class="credential">Specialist in vermogensopbouw voor vrouwen</div>
+      <div class="credential">Onafhankelijk en ongebonden adviseur</div>
+    </div>
+  </div>
+  <div class="profiel-rechts">
+    <p class="page-eyebrow">Mijn verhaal</p>
+    <h2>Van de <em>boardroom</em> naar jouw huiskamer</h2>
+    <p>Na twintig jaar werken als CFO in de financiële sector zag ik van dichtbij hoe groot de kloof is tussen de financiële kennis die beschikbaar is en wat vrouwen daadwerkelijk bereiken. Niet omdat ze het niet kunnen — maar omdat het systeem niet voor hen is gebouwd.</p>
+    <p>Ik besloot dat te veranderen. Vuori Advisory is opgericht met één missie: vrouwen financieel zelfstandig maken. Met advies dat begrijpelijk is, eerlijk is en echt aansluit bij jouw leven.</p>
+    <p>Mijn ervaring op het hoogste niveau in finance zet ik nu in voor jou — niet voor een corporate agenda, maar voor jouw toekomst.</p>
+  </div>
+</section>
+
+<section class="missie-section">
+  <h2>Mijn missie</h2>
+  <blockquote>"Elke vrouw verdient financiële zelfstandigheid — ongeacht haar achtergrond, haar relatie of haar inkomen."</blockquote>
+</section>
+
+<section class="ervaring-section">
+  <div class="section-label">Achtergrond & expertise</div>
+  <div class="ervaring-grid">
+    <div class="ervaring-item">
+      <div class="ervaring-jaar">20+ jaar</div>
+      <h3>Corporate finance</h3>
+      <p>Breed opgeleide financiële professional met ervaring in strategie, treasury, risicobeheer en investeringen op directieniveau.</p>
+    </div>
+    <div class="ervaring-item">
+      <div class="ervaring-jaar">Expertise</div>
+      <h3>Vermogensopbouw</h3>
+      <p>Specialisme in persoonlijk vermogensbeheer, pensioenplanning en beleggingsstrategie — vertaald naar begrijpelijk advies.</p>
+    </div>
+    <div class="ervaring-item">
+      <div class="ervaring-jaar">Missie</div>
+      <h3>Financiële gelijkheid</h3>
+      <p>Vuori Advisory is opgericht vanuit een persoonlijke overtuiging: vrouwen verdienen toegang tot hetzelfde financiële inzicht als topbestuurders.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Laten we <em>kennismaken</em></h2>
+  <p>Plan een gratis en vrijblijvend gesprek en ontdek wat Vuori Advisory voor jou kan betekenen.</p>
+  <a href="https://formspree.io/f/meevazyw" class="btn-primary">Gratis gesprek inplannen</a>
+</section>
+
+<footer>
+  <a href="index.html" class="logo">Vuori <span>Advisory</span></a>
+  <p>© 2026 Vuori Advisory · Alle rechten voorbehouden</p>
+</footer>
+
+</body>
+</html>

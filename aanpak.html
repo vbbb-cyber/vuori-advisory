@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aanpak — Vuori Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --gold: #B8965A; --gold-light: #D4A8A0; --gold-pale: #F7ECEA;
+    --cream: #FDF8F7; --deep: #1C1814; --muted: #7A5C5A;
+    --border: rgba(194,140,135,0.28); --rose: #C97E7E; --rose-pale: #F2DDD9;
+  }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--deep); overflow-x: hidden; }
+  nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4rem; border-bottom: 0.5px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 100; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; letter-spacing: 0.08em; color: var(--deep); text-decoration: none; display: inline-block; }
+  .logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.65rem 1.5rem; border: 1px solid var(--gold); color: var(--gold); background: transparent; transition: all 0.25s; font-family: 'Jost', sans-serif; text-decoration: none; }
+  .nav-cta:hover { background: var(--gold); color: white; }
+  .btn-primary { background: var(--gold); color: white; border: none; padding: 0.9rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; display: inline-block; text-decoration: none; }
+  .btn-primary:hover { background: #9A7A40; }
+
+  .page-hero { padding: 6rem 4rem 5rem; border-bottom: 0.5px solid var(--border); }
+  .page-eyebrow { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--rose); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .page-eyebrow::before { content: ''; display: block; width: 2rem; height: 0.5px; background: var(--rose); }
+  .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; line-height: 1.12; color: var(--deep); max-width: 30rem; }
+  .page-hero h1 em { font-style: italic; color: var(--gold); }
+  .page-hero p { font-size: 0.95rem; line-height: 1.85; color: var(--muted); font-weight: 300; max-width: 38rem; margin-top: 1.5rem; }
+
+  /* STAPPEN */
+  .stappen-section { padding: 5rem 4rem; }
+  .stap-groot { display: grid; grid-template-columns: 120px 1fr; gap: 3rem; padding: 4rem 0; border-bottom: 0.5px solid var(--border); align-items: start; }
+  .stap-groot:first-child { border-top: 0.5px solid var(--border); }
+  .stap-num-groot { font-family: 'Cormorant Garamond', serif; font-size: 5rem; font-weight: 300; color: var(--rose-pale); line-height: 1; }
+  .stap-content h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 400; color: var(--deep); margin-bottom: 1rem; }
+  .stap-content h2 em { font-style: italic; color: var(--gold); }
+  .stap-content p { font-size: 0.88rem; line-height: 1.85; color: var(--muted); font-weight: 300; max-width: 36rem; }
+  .stap-tag { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rose); border: 0.5px solid var(--rose); padding: 0.3rem 0.75rem; margin-bottom: 0.75rem; }
+
+  /* WAARDEN */
+  .waarden-section { background: var(--rose-pale); padding: 5rem 4rem; }
+  .waarden-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--deep); margin-bottom: 3rem; }
+  .waarden-section h2 em { font-style: italic; color: var(--gold); }
+  .waarden-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .waarde { background: white; padding: 2rem; border: 0.5px solid var(--border); }
+  .waarde h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; margin-bottom: 0.75rem; color: var(--deep); }
+  .waarde p { font-size: 0.82rem; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+  .cta-section { padding: 6rem 4rem; text-align: center; border-top: 0.5px solid var(--border); }
+  .cta-section h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; margin-bottom: 1rem; color: var(--deep); }
+  .cta-section h2 em { font-style: italic; color: var(--gold); }
+  .cta-section p { font-size: 0.9rem; color: var(--muted); margin-bottom: 2.5rem; font-weight: 300; }
+
+  footer { background: var(--deep); padding: 3rem 4rem; display: flex; justify-content: space-between; align-items: center; }
+  footer .logo { color: white; }
+  footer p { font-size: 0.75rem; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; } .nav-links { display: none; }
+    .page-hero, .stappen-section, .waarden-section, .cta-section { padding: 3rem 1.5rem; }
+    .stap-groot { grid-template-columns: 1fr; gap: 1rem; }
+    .stap-num-groot { font-size: 3rem; }
+    .waarden-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">Vuori <span>Advisory</span></a>
+  <ul class="nav-links">
+    <li><a href="diensten.html">Diensten</a></li>
+    <li><a href="aanpak.html" class="active">Aanpak</a></li>
+    <li><a href="over-ons.html">Over ons</a></li>
+    <li><a href="verhalen.html">Verhalen</a></li>
+  </ul>
+  <a href="https://formspree.io/f/meevazyw" class="nav-cta">Gratis gesprek</a>
+</nav>
+
+<section class="page-hero">
+  <p class="page-eyebrow">Onze aanpak</p>
+  <h1>Geen standaard advies,<br>maar <em>jouw</em> plan</h1>
+  <p>Financiën zijn persoonlijk. Jouw situatie, jouw doelen, jouw tempo. We beginnen altijd met luisteren — en bouwen van daaruit een plan dat echt bij jou past.</p>
+</section>
+
+<section class="stappen-section">
+  <div class="stap-groot">
+    <div class="stap-num-groot">I</div>
+    <div class="stap-content">
+      <div class="stap-tag">Stap één</div>
+      <h2>Kennismaking & <em>inventarisatie</em></h2>
+      <p>We beginnen met een vrijblijvend gesprek. Geen formulieren, geen jargon — gewoon een eerlijk gesprek over waar je nu staat en waar je naartoe wil. We brengen je volledige financiële situatie in kaart: inkomen, uitgaven, spaargeld, schulden, pensioen en toekomstdromen.</p>
+    </div>
+  </div>
+  <div class="stap-groot">
+    <div class="stap-num-groot">II</div>
+    <div class="stap-content">
+      <div class="stap-tag">Stap twee</div>
+      <h2>Persoonlijk <em>adviesplan</em></h2>
+      <p>Op basis van jouw situatie stellen we een concreet, begrijpelijk plan op. Geen stapels papier of ingewikkelde grafieken — maar heldere prioriteiten, concrete acties en eerlijk advies over wat wél en niet bij jou past. Altijd onafhankelijk, altijd in jouw belang.</p>
+    </div>
+  </div>
+  <div class="stap-groot">
+    <div class="stap-num-groot">III</div>
+    <div class="stap-content">
+      <div class="stap-tag">Stap drie</div>
+      <h2>Samen <em>uitvoeren</em></h2>
+      <p>We zetten het plan in gang — samen. Je hoeft het niet alleen te doen en hoeft niets te begrijpen wat je nog niet weet. We leggen alles uit, begeleiden je bij elke keuze en zorgen dat je zelf het gevoel hebt dat je de regie hebt.</p>
+    </div>
+  </div>
+  <div class="stap-groot">
+    <div class="stap-num-groot">IV</div>
+    <div class="stap-content">
+      <div class="stap-tag">Stap vier</div>
+      <h2>Blijvende <em>begeleiding</em></h2>
+      <p>Je leven verandert — een nieuwe baan, een scheiding, een erfenis, een baby. Je plan past zich aan. We checken regelmatig in, bespreken wat er is veranderd en sturen bij waar nodig. Zo blijf je altijd op koers.</p>
+    </div>
+  </div>
+</section>
+
+<section class="waarden-section">
+  <h2>Wat ons <em>onderscheidt</em></h2>
+  <div class="waarden-grid">
+    <div class="waarde">
+      <h3>Onafhankelijk advies</h3>
+      <p>We zijn niet verbonden aan een bank of verzekeraar. Ons advies is altijd in jouw belang — zonder verborgen belangen of provisies.</p>
+    </div>
+    <div class="waarde">
+      <h3>20 jaar finance-ervaring</h3>
+      <p>Onze expertise komt uit de praktijk. We kennen de financiële wereld van binnenuit en vertalen die kennis naar jouw persoonlijke situatie.</p>
+    </div>
+    <div class="waarde">
+      <h3>Speciaal voor vrouwen</h3>
+      <p>We begrijpen de uitdagingen die specifiek voor vrouwen spelen — van de gender pay gap tot pensioenopbouw bij deeltijdwerk. Daar richten we ons advies op.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <h2>Begin met <em>stap één</em></h2>
+  <p>Plan een gratis en vrijblijvend kennismakingsgesprek.</p>
+  <a href="https://formspree.io/f/meevazyw" class="btn-primary">Gratis gesprek inplannen</a>
+</section>
+
+<footer>
+  <a href="index.html" class="logo">Vuori <span>Advisory</span></a>
+  <p>© 2026 Vuori Advisory · Alle rechten voorbehouden</p>
+</footer>
+
+</body>
+</html>
